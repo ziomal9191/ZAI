@@ -9,13 +9,27 @@ function addNoteToDb()
 		var noteNumber = localStorage.getItem("noteNumber");
 		noteNumber++;
 		localStorage.setItem("noteNumber",noteNumber );
-		// Store
 		localStorage.setItem(noteNumber, $('#noteText').val());
-		// Retrieve
-		//var surname = localStorage.getItem("lastname");
+		// Retrieve);
+		printNotePage();
 	} 
 	else {
 		// No Web Storage suport …
 		alert("dupa");
+	}
+	
+}
+
+function printNotes()
+{
+	//alert("dd");
+	for (var i = 0; i < localStorage.length; i++){
+	 //   $('body').append(localStorage.getItem(localStorage.key(i)));
+		var localStorageElement = localStorage.key(i);
+		//alert(localStorageElement);
+		if(isNaN(localStorageElement)==false)
+		{
+			document.write('<p>' + localStorage.getItem(localStorageElement)+'</p>');
+		}
 	}
 }
