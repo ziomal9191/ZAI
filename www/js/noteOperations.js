@@ -29,7 +29,7 @@ function printNotes()
 		//alert(localStorageElement);
 		if(isNaN(localStorageElement)==false)
 		{
-			document.write('<p>' + localStorage.getItem(localStorageElement)+'</p>');
+			document.write('<button>' + localStorage.getItem(localStorageElement)+'</button>');
 		}
 	}
 }
