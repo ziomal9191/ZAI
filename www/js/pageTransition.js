@@ -4,5 +4,9 @@ function addNote()
 }
 function printNotePage()
 {
-    window.location = "printNote.html";
+    window.location = "printNotes.html";
+}
+function mainPage()
+{
+	window.location = "index.html";
 }
