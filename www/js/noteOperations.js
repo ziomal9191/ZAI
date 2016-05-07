@@ -13,7 +13,21 @@ function addNoteToDb()
 		printNotePage();
 	} 
 }
+function makeAndAddPhotoToDb()
+{
+	navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+	    destinationType: Camera.DestinationType.DATA_URL });
+}
 
+
+function onSuccess(imageURI) {
+    var image = document.getElementById('myImage');
+    image.src = imageURI;
+}
+
+function onFail(message) {
+    alert('Failed because: ' + message);
+}
 function printNotes()
 {
 	for (var i = 0; i < localStorage.length; i++){
