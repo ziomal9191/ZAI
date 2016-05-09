@@ -21,8 +21,19 @@ function makeAndAddPhotoToDb()
 
 
 function onSuccess(imageURI) {
-    var image = document.getElementById('myImage');
-    image.src = imageURI;
+    alert(imageURI);
+    var db = window.sqlitePlugin.openDatabase({name: "my.db"});
+
+    db.transaction(function(tx) {
+      //tx.executeSql('DROP TABLE IF EXISTS test_table');
+      tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, data BLOB)');
+      tx.executeSql("INSERT INTO test_table (data) VALUES (?)", [imageURI], function(tx, res) {
+          console.log("insertId: " + res.insertId + " -- probably 1");
+          console.log("rowsAffected: " + res.rowsAffected + " -- should be 1");
+      });
+    });
+    alert('SQL END');
+    
 }
 
 function onFail(message) {

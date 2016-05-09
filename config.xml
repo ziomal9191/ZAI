@@ -31,6 +31,7 @@
     <plugin name="cordova-plugin-vibration" source="npm" spec="&gt;1.0.0" />
     <plugin name="cordova-plugin-whitelist" source="npm" spec="&gt;1.0.0" />
 	<plugin name="com.phonegap.plugins.barcodescanner" spec="2.0.0" source="pgb" />
+	<plugin name="com.brodysoft.sqliteplugin" spec="1.0.6" source="pgb" />
 	<gap:plugin name="nl.x-services.plugins.flashlight" />
 	<feature name="Device">
     <param name="android-package" value="org.apache.cordova.device.Device" />
