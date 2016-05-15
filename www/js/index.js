@@ -80,28 +80,6 @@ function callUekPage()
    
 	}
 }
-function callInfoPage()
-{    
-	window.location = "info.html";
-}
-
-function callBiorythmPage()
-{    
-	window.location = "biorythm.html";
-}
-
-function callTorchPage()
-{
-	
-	window.plugins.flashlight.available(function(isAvailable) {
-  if (isAvailable) {
-
-		window.plugins.flashlight.toggle();
-  } else {
-    alert("Flashlight not available on this device");
-  }
-});
-	
 	
 }
 
