@@ -1,14 +1,14 @@
 function addNote()
 {
-    window.location = "addNote.html";
+    window.location = "index.html";
 }
 function printNotePage()
 {
-    window.location = "printNotes.html";
+    window.location = "index.html";
 }
 function modifyNotePage()
 {
-    window.location = "modifyNote.html";
+	window.location = "index.html"
 }
 function mainPage()
 {
