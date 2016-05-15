@@ -35,21 +35,15 @@
 			$( "body > [data-role='header'] [data-role='navbar']" ).navbar();
 		});
 	</script>
-	<script type="text/javascript">
-		var currentKey;
-		$("a").on("click", function() {
-			currentKey = $(this).text();
-		});
-	</script>
 	<!--<script src="http://www.w3schools.com/lib/w3data.js"></script>-->
 </head>
-<body>
+<body onload="onLoad()">
 	<div data-role="page" id="homepage">
 		<div data-role="popup" id="menu" data-theme="a">
 			<ul data-role="listview" data-theme="c" data-inset="true">
 				<li data-role="divider" data-theme="a">Note Menu</li>
 				<li><button onclick=deleteNote()>Delete note</button></li>
-				<li><button onclick=modifyNoteInDb()>Modify note</button></li>
+				<li><button onclick=modifyNotePage()>Modify note</button></li>
 			</ul>
 		</div>
 		<div data-role="header" data-position="fixed" data-theme="a">
@@ -89,6 +83,53 @@
 		</div>
 	</div>
 	
+	<div data-role="page" id="plusNote">
+		<div data-role="header" data-position="fixed" data-theme="a">
+			<h1>UEK Note</h1>
+			<a href="#outside" data-icon="bars" data-iconpos="notext">Menu</a>
+			<a href="#plusNote" class="jqm-search-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-grid ui-nodisc-icon ui-alt-icon ui-btn-right">Add</a>
+		</div>
+		<div data-role="main" class="ui-content">
+			<div id="createNote">
+				<div  data-role="fieldcontain">
+					<label>Note text</label>
+					<textarea  id="noteText"></textarea>
+					<input type="button" value="Add photo" onclick="getQrCode()" />
+					<input type="button" value="Get date" id = "datebutton" />
+					<input type="button" value="Get localization" id = "localizationbutton" />
+				</div>
+					<input type="button" value="Add note" onclick="addNoteToDb()" />
+			</div>	
+		</div>
+		<div data-role="footer" data-position="fixed; bottom: 0; width: 100%">
+			<h1>&copy; Jakób Woźniczka & Michał Mirowski</h1>
+		</div>
+	</div>
+	
+		<div data-role="page" id="modify">
+		<div data-role="header" data-position="fixed" data-theme="a">
+			<h1>UEK Note</h1>
+			<a href="#outside" data-icon="bars" data-iconpos="notext">Menu</a>
+			<a href="#plusNote" class="jqm-search-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-grid ui-nodisc-icon ui-alt-icon ui-btn-right">Add</a>
+		</div>
+		<div data-role="main" class="ui-content">
+			<div id="createNote">
+			<div  data-role="fieldcontain">
+				<label>Note text</label>
+				<textarea  id="noteText"></textarea>
+				<input type="button" value="Add photo" onclick="getQrCode()" />
+				<input type="button" value="Get date" id = "datebutton" />
+				<input type="button" value="Get localization" id = "localizationbutton" />
+			
+				</div>
+				<input type="button" value="Modify note" onclick="modifyNoteInDb()" />
+			</div>	
+		</div>
+		<div data-role="footer" data-position="fixed; bottom: 0; width: 100%">
+			<h1>&copy; Jakób Woźniczka & Michał Mirowski</h1>
+		</div>
+	</div>
+	
 	<div data-role="panel" id="outside" data-theme="b">
 		<ul data-role="listview">
 			<li data-icon="back" class="ui-first-child"><a href="#" data-rel="close" class="ui-btn ui-btn-icon-right ui-icon-back">Close</a></li>
@@ -97,13 +138,126 @@
 		</ul>
 	</div>
 	
-	<div data-role="panel" id="plusNote" data-position="right" data-display="overlay" data-theme="a">
+	<!--<div data-role="panel" id="plusNote" data-position="right" data-display="overlay" data-theme="a">
 		<ul data-role="listview">
 			<li data-icon="back" class="ui-first-child"><a href="#" data-rel="close" class="ui-btn ui-btn-icon-right ui-icon-back">Close</a></li>
 			<input type="button" value="Print note" onclick="printNotePage()()" />
 			<input type="button" value="scanCode" onclick="getCodeFunction()" />
 		</ul>
-	</div>
+	</div>-->
+	
+	<script>
+	$(document).ready(function()
+			{
+		var currentKey = window.sessionStorage.getItem("currentKey");
+
+		for (var i = 0; i < localStorage.length; i++){
+			var localStorageElement = localStorage.key(i);
+			if(isNaN(localStorageElement)==false)
+			{
+				if(currentKey == localStorage.getItem(localStorageElement))
+				{
+					$('#noteText').text(localStorage.getItem(localStorageElement));  
+					return;
+				}
+			}
+		} 
+
+	});
+		$(document).ready(function(){
+		$('#localizationbutton').click(function(){
+		
+			var onSuccess = function(position) {
+				var note = $('#noteText').val();
+				$('#noteText').val(note + "\n" +
+					  'Latitude: '          + position.coords.latitude          + '\n' +
+			          'Longitude: '         + position.coords.longitude         + '\n' +
+			          'Altitude: '          + position.coords.altitude          + '\n' +
+			          'Accuracy: '          + position.coords.accuracy          + '\n' +
+			          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+			          'Heading: '           + position.coords.heading           + '\n' +
+			          'Speed: '             + position.coords.speed             + '\n' +
+			          'Timestamp: '         + position.timestamp                + '\n');
+			};
+
+			// onError Callback receives a PositionError object
+			//
+			var onErrorF = function onError(error) {
+			    alert('code: '    + error.code    + '\n' +
+			          'message: ' + error.message + '\n');
+			}
+			navigator.geolocation.getCurrentPosition(onSuccess, onErrorF);
+
+	});
+	});
+	$(document).ready(function(){
+		$('#datebutton').click(function(){
+			var options = {
+					  date: new Date(),
+					  mode: 'date'
+					};
+
+					datePicker.show(options, function(date){
+						var note = $('#noteText').val();
+						$('#noteText').val(note + "\n" + "date result " + date);  
+					});
+
+	});
+	});
+		
+	</script>
+	<script type="text/javascript">
+		var currentKey;
+		$("a").on("click", function() {
+			currentKey = $(this).text();
+		});
+	</script>
+	<script>
+	
+	$(document).ready(function(){
+		$('#localizationbutton').click(function(){
+			
+			var onSuccess = function(position) {
+				var note = $('#noteText').val();
+				$('#noteText').val(note + "\n" +
+					  'Latitude: '          + position.coords.latitude          + '\n' +
+			          'Longitude: '         + position.coords.longitude         + '\n' +
+			          'Altitude: '          + position.coords.altitude          + '\n' +
+			          'Accuracy: '          + position.coords.accuracy          + '\n' +
+			          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+			          'Heading: '           + position.coords.heading           + '\n' +
+			          'Speed: '             + position.coords.speed             + '\n' +
+			          'Timestamp: '         + position.timestamp                + '\n');
+			};
+
+			// onError Callback receives a PositionError object
+			//
+			var onErrorF = function onError(error) {
+			    alert('code: '    + error.code    + '\n' +
+			          'message: ' + error.message + '\n');
+			}
+			navigator.geolocation.getCurrentPosition(onSuccess, onErrorF);
+
+	});
+	});
+	$(document).ready(function(){
+		$('#datebutton').click(function(){
+			alert("begin");
+
+			var options = {
+					  date: new Date(),
+					  mode: 'date'
+					};
+
+					datePicker.show(options, function(date){
+						var note = $('#noteText').val();
+						$('#noteText').val(note + "\n" + "date result " + date);  
+					});
+
+	});
+	});
+		
+	</script>
 	<script type="text/javascript" src="cordova.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
 	<script type="text/javascript">
