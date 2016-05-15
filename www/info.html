@@ -12,7 +12,11 @@
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script src="js/pageTransition.js"></script>
+	<script src="js/noteOperations.js"></script>
+    
     <script type="text/javascript" charset="utf-8">
+    
 
     // Wait for device API libraries to load
     //
@@ -33,6 +37,7 @@
 		'Device UUID: ' + device.uuid+ '<br/>' +
 		'Device Model: ' + device.model+ '<br/>' +
 		'Device Version: ' + device.version+ '<br/>';
+		printNotes();
     }
 	$(document).ready(function(){
 		

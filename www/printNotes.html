@@ -21,24 +21,24 @@
 <script src="js/pageTransition.js"></script>
 <script src="js/noteOperations.js"></script>
 <script type="text/javascript" charset="utf-8">
-	function onLoad() {
-		document.addEventListener("deviceready", onDeviceReady, true);
-	}
-
+		document.addEventListener("deviceready", onDeviceReady, false);
+	
 	function onDeviceReady() {
-		printNotes();
+	//	alert("devieReady");
+	//	printNotes();
 	}
 </script>
 <title>Hello World</title>
 </head>
 
-<body>
+<body onload="onLoad()">
 
 	<div data-role="page" id="pageone">
 		<div data-role="popup" id="menu" data-theme="a">
 			<ul data-role="listview" data-theme="c" data-inset="true">
 				<li data-role="divider" data-theme="a">Note Menu</li>
 				<li><button onclick=deleteNote()>Delete note</button></li>
+				<li><button onclick=modifyNotePage()>Modify note</button></li>
 			</ul>
 		</div>
 		<div data-role="header"></div>
@@ -46,7 +46,7 @@
 		<div data-role="main" class="ui-content">
 			<div id="printNote"></div>
 			<script>
-			printNotes();				
+				printNotes();				
 			</script>
 
 		</div>
@@ -59,6 +59,7 @@
 		var currentKey;
 		$("a").on("click", function() {
 			currentKey = $(this).text();
+			window.sessionStorage.setItem("currentKey",  $(this).text());
 		});
 	</script>
 	<script type="text/javascript" src="cordova.js"></script>
