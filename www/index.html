@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-	.bottomright {
-		position: absolute;
-		bottom: 8px;
-		right: 16px;
-		font-size: 18px;
-	}
-</style>
 	<meta charset="utf-8" />
 	<meta name="author" content="Jakób Woźniczka & Michał Mirowski"/>
 	<title>UEK Note</title>
@@ -43,69 +35,75 @@
 			$( "body > [data-role='header'] [data-role='navbar']" ).navbar();
 		});
 	</script>
-</head>
-<body>
-	<div data-role="page" id="pageone">
-		<!--<div data-role="panel" id="myPanel" class="ui-content">
-			<h2>Panel Header</h2>
-			<input type="button" value="scanCode" onclick="getCodeFunction()" />
-		</div>-->
-		<div data-role="popup" id="menu" data-theme="a">
-			<ul data-role="listview" data-theme="c" data-inset="true">
-				<li data-role="divider" data-theme="a">Note Menu</li>
-				<li><button onclick=deleteNote()>Delete note</button></li>
-			</ul>
-		</div>
-		
-		<div data-role="header" data-position="fixed" data-theme="a">
-			<h1>UEK Note</h1>
-			<a href="#outside" data-icon="bars" data-iconpos="notext">Menu</a>
-			<a href="#search" class="jqm-search-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-search ui-nodisc-icon ui-alt-icon ui-btn-right">Search</a>
-		</div>
-		
-		<div data-role="main" class=".bottomright">
-			<div id="printNote"></div>
-			<script>printNotes();</script>
-			<a href="#plusNote"  class="ui-btn ui-btn-inline ui-icon-grid ui-btn-icon-notext ui-corner-all ui-shadow ">Without circle</a>
-			<input type="button" value="Add note" onclick="addNote()" /> 
-			<!--<input type="button" value="Print note" onclick="printNotePage()()" />
-			<input type="button" value="scanCode" onclick="getCodeFunction()" />
-			<a href="#myPanel" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">Open Panel</a>-->
-		</div>
-
-		<div data-role="footer" data-position="fixed; bottom: 0; width: 100%">
-			<h1>&copy; Jakób Woźniczka & Michał Mirowski</h1>
-		</div>
-	</div>
-	
-	 <div data-role="panel" id="search" data-position="right" data-display="overlay" data-theme="a">
-		<ul data-role="listview">
-			<li data-icon="back" class="ui-first-child"><a href="#" data-rel="close" class="ui-btn ui-btn-icon-right ui-icon-back">Close</a></li>
-			<ul class="ui-li-static ui-body-inherit" data-filter-placeholder="Search demos..." data-filter-reveal="true">
-			<script>printNotes();</script>
-			</ul>
-	</div>
-	
-	<div data-role="panel" id="outside" data-theme="b">
-		<ul data-role="listview">
-			<li data-icon="back" class="ui-first-child"><a href="#" data-rel="close" class="ui-btn ui-btn-icon-right ui-icon-back">Close</a></li>
-			<li class="ui-li-static ui-body-inherit"><input type="button" value="Author" class="ui-btn ui-btn-icon-right ui-icon-arrow-r" data-transition="slide" onclick="callAuthorPage()" /></a></li>
-		</ul>
-	</div>
-	
-	<div data-role="panel" id="plusNote" data-theme="b">
-		<ul data-role="listview">
-			<li data-icon="back" class="ui-first-child"><a href="#" data-rel="close" class="ui-btn ui-btn-icon-right ui-icon-back">Close</a></li>
-			<input type="button" value="Print note" onclick="printNotePage()()" />
-			<input type="button" value="scanCode" onclick="getCodeFunction()" />
-		</ul>
-	</div>
 	<script type="text/javascript">
 		var currentKey;
 		$("a").on("click", function() {
 			currentKey = $(this).text();
 		});
 	</script>
+	<!--<script src="http://www.w3schools.com/lib/w3data.js"></script>-->
+</head>
+<body>
+	<div data-role="page" id="homepage">
+		<div data-role="popup" id="menu" data-theme="a">
+			<ul data-role="listview" data-theme="c" data-inset="true">
+				<li data-role="divider" data-theme="a">Note Menu</li>
+				<li><button onclick=deleteNote()>Delete note</button></li>
+				<li><button onclick=modifyNoteInDb()>Modify note</button></li>
+			</ul>
+		</div>
+		<div data-role="header" data-position="fixed" data-theme="a">
+			<h1>UEK Note</h1>
+			<a href="#outside" data-icon="bars" data-iconpos="notext">Menu</a>
+			<a href="#plusNote" class="jqm-search-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-grid ui-nodisc-icon ui-alt-icon ui-btn-right">Add</a>
+		</div>
+		<div data-role="main" class=".bottomright">
+			<div id="printNote"></div>
+			<script>printNotes();</script>
+		</div>
+		<div data-role="footer" data-position="fixed; bottom: 0; width: 100%">
+			<h1>&copy; Jakób Woźniczka & Michał Mirowski</h1>
+		</div>
+	</div>
+	
+	<!--<div w3-include-html="author_page.html"></div>
+	<script>w3IncludeHTML();</script>
+	-->
+	<div data-role="page" data-theme="a" id="author">
+		<center><h2>Authors</h2></center>
+		<!--<input type= "button" value="Author" onclick="callAuthorPage()"/>-->	
+		<div data-role="header" data-position="fixed" data-theme="a">
+			<h1>UEK Note</h1>
+			<a href="#outside" data-icon="bars" data-iconpos="notext">Menu</a>
+			<a href="#plusNote" class="jqm-search-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-grid ui-nodisc-icon ui-alt-icon ui-btn-right">Add</a>
+		</div>
+		<div data-role="main" class="ui-content">
+			<center>
+			<p>Author name is:</p>
+			<p></br>Jakub Woźniczka Nr. Albumu: 197388</p>
+			<p></br>Michał Mirowski Nr. Albumu: 197490</p>
+			</center>
+		</div>
+		<div data-role="footer" data-position="fixed; bottom: 0; width: 100%">
+			<h1>&copy; Jakób Woźniczka & Michał Mirowski</h1>
+		</div>
+	</div>
+	
+	<div data-role="panel" id="outside" data-theme="b">
+		<ul data-role="listview">
+			<li data-icon="back" class="ui-first-child"><a href="#" data-rel="close" class="ui-btn ui-btn-icon-right ui-icon-back">Close</a></li>
+			<li class="ui-li-static ui-body-inherit"><a href="#homepage"  class="ui-btn ui-btn-icon-right ui-icon-arrow-r" data-transition="slide">Home</a></li>
+			<li class="ui-li-static ui-body-inherit"><a href="#author"  class="ui-btn ui-btn-icon-right ui-icon-arrow-r" data-transition="slide">Author</a></li>
+		</ul>
+	</div>
+	
+	<div data-role="panel" id="plusNote" data-position="right" data-display="overlay" data-theme="a">
+		<ul data-role="listview">
+			<li data-icon="back" class="ui-first-child"><a href="#" data-rel="close" class="ui-btn ui-btn-icon-right ui-icon-back">Close</a></li>
+			<input type="button" value="Print note" onclick="printNotePage()()" />
+			<input type="button" value="scanCode" onclick="getCodeFunction()" />
+		</ul>
+	</div>
 	<script type="text/javascript" src="cordova.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
 	<script type="text/javascript">
@@ -114,3 +112,4 @@
 </body>
 
 </html>
+
