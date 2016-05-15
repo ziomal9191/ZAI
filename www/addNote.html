@@ -45,8 +45,6 @@
 			<div  data-role="fieldcontain">
 				<label>Note text</label>
 				<textarea  id="noteText"></textarea>
-				<p id ="skanerp"></p>
-				<p id = "skan"></p>
 				<input type="button" value="Add photo" onclick="getQrCode()" />
 				<input type="button" value="Get date" id = "datebutton" />
 				<input type="button" value="Get localization" id = "localizationbutton" />
@@ -60,38 +58,13 @@
 		</div>
 	</div>
 	<script>
-	alert("begin");
-	$(document).ready(function(){
-		$('#skanerfdbutton').click(function(){
-			cordova.plugins.barcodeScanner.scan(
-				function (result) {
-
-					alert("begin");
-					var note = $('#noteText').val();
-					$('#noteText').text(note + "\n" + "We got a barcode\n" +
-				                "Result: " + result.text + "\n" +
-				                "Format: " + result.format + "\n" +
-				                "Cancelled: " + result.cancelled);
-					document.getElementById("skanerp").innerHTML =$('#noteText').val()+ "We got a barcode\n" +
-	                "Result: " + result.text + "\n" +
-	                "Format: " + result.format + "\n" +
-	                "Cancelled: " + result.cancelled;
-					alert("end");
-					}, 
-				function (error) {
-					document.getElementById("skan").innerHTML ="Scanning failed: " + error ;
-				}
-			);	
-		});
-	});
 	
 	$(document).ready(function(){
 		$('#localizationbutton').click(function(){
-			alert("begin");
-
+			
 			var onSuccess = function(position) {
 				var note = $('#noteText').val();
-				$('#noteText').text(note + "\n" +
+				$('#noteText').val(note + "\n" +
 					  'Latitude: '          + position.coords.latitude          + '\n' +
 			          'Longitude: '         + position.coords.longitude         + '\n' +
 			          'Altitude: '          + position.coords.altitude          + '\n' +
@@ -123,7 +96,7 @@
 
 					datePicker.show(options, function(date){
 						var note = $('#noteText').val();
-						$('#noteText').text(note + "\n" + "date result " + date);  
+						$('#noteText').val(note + "\n" + "date result " + date);  
 					});
 
 	});

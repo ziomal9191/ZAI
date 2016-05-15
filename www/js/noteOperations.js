@@ -10,10 +10,6 @@ function addNoteToDb()
 		noteNumber++;
 		localStorage.setItem("noteNumber",noteNumber );
 		localStorage.setItem(noteNumber, $('#noteText').val());
-		if (!window.sqlitePlugin.openDatabase) {
-			  alert('Databases are not supported in this browser.');
-			  return;
-			 }
 		printNotePage();
 		
 	} 
@@ -21,18 +17,15 @@ function addNoteToDb()
 
 function getQrCode()
 {
-    alert("begin");
-	
 		cordova.plugins.barcodeScanner.scan(
 			function (result) {
 				var currText = $('#noteText').val();
-				alert(currText);
-				document.getElementById("skanerp").innerHTML = currText+"\n" + "We got a barcode\n" +
+				$('#noteText').val(currText+"\n" + "We got a barcode\n" +
 					"Result: " + result.text + "\n" +
 					"Format: " + result.format + "\n" +
 					"Cancelled: " + result.cancelled + 
 					"Success: " + success + "\n" +
-					"Fail: " + fail + "\n";
+					"Fail: " + fail + "\n");
 				}, 
 			function (error) {
 				alert("Cannot get qr code") ;

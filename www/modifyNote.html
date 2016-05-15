@@ -74,34 +74,12 @@
 		} 
 
 	});
-	$(document).ready(function(){
-		$('#skanerfdbutton').click(function(){
-			cordova.plugins.barcodeScanner.scan(
-				function (result) {
-
-					var note = $('#noteText').val();
-					$('#noteText').text(note + "\n" + "We got a barcode\n" +
-				                "Result: " + result.text + "\n" +
-				                "Format: " + result.format + "\n" +
-				                "Cancelled: " + result.cancelled);
-					document.getElementById("skanerp").innerHTML =$('#noteText').val()+ "We got a barcode\n" +
-	                "Result: " + result.text + "\n" +
-	                "Format: " + result.format + "\n" +
-	                "Cancelled: " + result.cancelled;
-					}, 
-				function (error) {
-					document.getElementById("skan").innerHTML ="Scanning failed: " + error ;
-				}
-			);	
-		});
-	});
-	
-	$(document).ready(function(){
+		$(document).ready(function(){
 		$('#localizationbutton').click(function(){
 		
 			var onSuccess = function(position) {
 				var note = $('#noteText').val();
-				$('#noteText').text(note + "\n" +
+				$('#noteText').val(note + "\n" +
 					  'Latitude: '          + position.coords.latitude          + '\n' +
 			          'Longitude: '         + position.coords.longitude         + '\n' +
 			          'Altitude: '          + position.coords.altitude          + '\n' +
@@ -131,7 +109,7 @@
 
 					datePicker.show(options, function(date){
 						var note = $('#noteText').val();
-						$('#noteText').text(note + "\n" + "date result " + date);  
+						$('#noteText').val(note + "\n" + "date result " + date);  
 					});
 
 	});
