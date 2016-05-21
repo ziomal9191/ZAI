@@ -8,7 +8,7 @@ function printNotePage()
 }
 function modifyNotePage()
 {
-	window.location = "index.html"
+	window.location = "modifyNotes.html"
 }
 function mainPage()
 {

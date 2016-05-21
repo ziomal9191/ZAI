@@ -44,7 +44,7 @@ function printNotes()
 		var localStorageElement = localStorage.key(i);
 		if(isNaN(localStorageElement)==false)
 		{
-			document.write('<li><a href="#menu" data-rel="popup" data-role="button">' + localStorage.getItem(localStorageElement)+'</a></li>');
+			document.write('<li><a href="#menu" class="notesClass" data-rel="popup" data-role="button" >' + localStorage.getItem(localStorageElement)+'</a></li>');
 
 		}
 	 }	 
@@ -69,7 +69,7 @@ function deleteNote()
 
 function modifyNoteInDb()
 {
-	var currentKey = window.sessionStorage.getItem("currentKey");
+	var currentKey = window.localStorage.getItem("currentKey");
 
 	for (var i = 0; i < localStorage.length; i++){
 		var localStorageElement = localStorage.key(i);

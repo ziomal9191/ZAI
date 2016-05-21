@@ -195,28 +195,20 @@
 
 	});
 	});
-	$(document).ready(function(){
-		$('#datebutton').click(function(){
-			var options = {
-					  date: new Date(),
-					  mode: 'date'
-					};
-
-					datePicker.show(options, function(date){
-						var note = $('#noteText').val();
-						$('#noteText').val(note + "\n" + "date result " + date);  
-					});
-
-	});
-	});
 		
 	</script>
 	<script type="text/javascript">
 		var currentKey;
 		$("a").on("click", function() {
-			currentKey = $(this).text();
+			if($(this).hasClass("notesClass"))
+			{
+				currentKey = $(this).text();
+				window.localStorage.setItem("currentKey",$(this).text());
+			}
+			
 		});
 	</script>
+		
 	<script>
 	
 	$(document).ready(function(){
@@ -247,8 +239,7 @@
 	});
 	$(document).ready(function(){
 		$('#datebutton').click(function(){
-			alert("begin");
-
+		
 			var options = {
 					  date: new Date(),
 					  mode: 'date'
